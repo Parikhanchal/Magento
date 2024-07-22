@@ -52,12 +52,18 @@ class Save extends Action
                 $skuIndex = array_search('Unit(SKU)', $header);
                 $qtyIndex = array_search('Qty', $header);
                 $priceIndex = array_search('Price', $header);
+                $assembly = array_search('Assembly', $header);
+                $hinge = array_search('Hinge', $header);
+
                 
                 if ($skuIndex !== false && isset($row[$skuIndex])) {
                     $skuData[] = [
                         'sku' => $row[$skuIndex],
                         'qty' => $row[$qtyIndex] ?? 1,
                         'price' => $row[$priceIndex] ?? 0,
+                        'assembly' => $row[$assembly] ?? 0,
+                        'hinge' => $row[$hinge] ?? 0,
+
                     ];
                 }
             }

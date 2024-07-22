@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/system_file.xsd">
+    <system>
+        <tab id="freeproduct" translate="label" sortOrder="50">
+            <label>Free Product</label>
+        </tab>
+        <section id="freeproduct_section" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Free Product Configuration</label>
+            <tab>freeproduct</tab>
+            <resource>K365_FreeProduct::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="dynamic_options" translate="label" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Options</label>
+                    <backend_model>Kitchen\CreatPdf\Block\Adminhtml\System\Config\Backend\DynamicBackOptions</backend_model>
+                    <frontend_model>Kitchen\CreatPdf\Block\Adminhtml\System\Config\Form\Field\DynamicFrontOptions</frontend_model>
+                </field>
+            </group>
+        </section>
+
+       <tab id="normal_freeproduct" translate="label" sortOrder="50">
+            <label>Normal Free Product</label>
+        </tab>
+        <section id="normal_freeproduct_section" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+
+            <label>Normal Free Product Configuration</label>
+            <tab>normal_freeproduct</tab>
+            <resource>K365_NormalFreeProduct::config</resource>
+            <group id="normal_general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Quantity Dynamic</label>
+                <field id="normal_dynamic_options" translate="label" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>General Configuration1</label>
+                    <frontend_model>Kitchen\CreatPdf\Block\Adminhtml\System\Config\Form\Field\FrontOption</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

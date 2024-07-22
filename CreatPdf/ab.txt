@@ -1,0 +1,195 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Kitchen\CreatPdf\Controller\Adminhtml\Index;
+
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
+use Magento\Sales\Api\OrderRepositoryInterface;
+use Magento\Framework\App\Response\Http\FileFactory;
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Controller\Result\RawFactory;
+use Magento\Framework\View\LayoutInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\Serialize\Serializer\Json as JsonSerializer;
+use Magento\Catalog\Api\ProductRepositoryInterface;
+use Zend_Pdf;
+use Zend_Pdf_Page;
+use Zend_Pdf_Style;
+use Zend_Pdf_Color_Rgb;
+use Zend_Pdf_Font;
+use Zend_Pdf_Image;
+
+class Export extends Action
+{
+    protected $orderRepository;
+    protected $fileFactory;
+    protected $resultRawFactory;
+    protected $layout;
+    protected $directoryList;
+    protected $scopeConfig;
+    protected $serializer;
+    protected $productRepository;
+
+    public function __construct(
+        Context $context,
+        OrderRepositoryInterface $orderRepository,
+        FileFactory $fileFactory,
+        RawFactory $resultRawFactory,
+        LayoutInterface $layout,
+        DirectoryList $directoryList,
+        ScopeConfigInterface $scopeConfig,
+        JsonSerializer $serializer,
+        ProductRepositoryInterface $productRepository
+    ) {
+        parent::__construct($context);
+        $this->orderRepository = $orderRepository;
+        $this->fileFactory = $fileFactory;
+        $this->resultRawFactory = $resultRawFactory;
+        $this->layout = $layout;
+        $this->directoryList = $directoryList;
+        $this->scopeConfig = $scopeConfig;
+        $this->serializer = $serializer;
+        $this->productRepository = $productRepository;
+
+        // scopeconfig - custom configuration values featch (magento admin)
+        // unserializer - array formate me print krega data
+        // serializer - json formate me print krega data
+        // directoryList - get the img path
+    }
+
+    public function execute()
+    // {
+    //     echo 5;
+    //     die;
+    //     $orderId = $this->getRequest()->getParam('order_id');
+    //     $order = $this->orderRepository->get($orderId);
+
+    //     // Retrieve dynamic options from configuration
+    //     $configValue = $this->scopeConfig->getValue(
+    //         'freeproduct_section/general/dynamic_options',
+    //         \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+    //     );
+    //     $configValue = $this->serializer->unserialize($configValue);
+    //     // print_r(get_class_methods($this->serializer));
+    //     // print_r($configValue);
+    //     // die();
+
+    //     $pdf = new Zend_Pdf();
+    //     $page = new Zend_Pdf_Page(Zend_Pdf_Page::SIZE_A4);
+    //     $style = new Zend_Pdf_Style();
+    //     $style->setLineColor(new Zend_Pdf_Color_Rgb(0, 0, 0));
+    //     $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA);
+    //     $boldFont = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA_BOLD);
+
+    //     // Title
+    //     $style->setFont($boldFont, 18);
+    //     $page->setStyle($style);
+    //     $page->drawText('Pick Pack List', 250, 800, 'UTF-8');
+
+    //     // Shipping Address
+    //     $style->setFont($font, 12);
+    //     $page->setStyle($style);
+    //     $yPosition = 750; // Initial Y position for content
+    //     $shippingAddress = $order->getShippingAddress();
+    //     $page->drawText('Shipping Address:', 40, $yPosition, 'UTF-8');
+    //     $yPosition -= 20;
+    //     $page->drawText($shippingAddress->getStreetLine(1), 40, $yPosition, 'UTF-8');
+    //     $yPosition -= 20;
+    //     $page->drawText($shippingAddress->getCity() . ', ' . $shippingAddress->getRegion() . ' ' . $shippingAddress->getPostcode(), 40, $yPosition, 'UTF-8');
+    //     $yPosition -= 20;
+    //     $page->drawText($shippingAddress->getCountryId(), 40, $yPosition, 'UTF-8');
+    //     $yPosition -= 20;
+    //     $page->drawText('Phone Number: ' . $shippingAddress->getTelephone(), 40, $yPosition, 'UTF-8');
+    //     $yPosition -= 30;
+
+    //     // Order Details
+    //     $detailsStartX = 350; // Start X position for details
+    //     $yPosition = 750; // Reset Y position for details
+    //     $page->drawText('Reference: #' . $order->getIncrementId(), $detailsStartX, $yPosition, 'UTF-8');
+    //     $yPosition -= 20;
+    //     $page->drawText('Shipping Method: ' . $order->getShippingDescription(), $detailsStartX, $yPosition, 'UTF-8');
+    //     $yPosition -= 20;
+    //     $page->drawText('Payment Method: ' . $order->getPayment()->getMethod(), $detailsStartX, $yPosition, 'UTF-8');
+    //     $yPosition -= 20;
+    //     $page->drawText('Order Date: ' . $order->getCreatedAt(), $detailsStartX, $yPosition, 'UTF-8');
+    //     $yPosition -= 20;
+    //     $page->drawText('Note: ', $detailsStartX, $yPosition, 'UTF-8');
+    //     $yPosition -= 20;
+    //     $page->drawText('', $detailsStartX, $yPosition, 'UTF-8');
+    //     $yPosition -= 20; 
+
+    //     // Table Header
+    //     $page->drawRectangle(40, $yPosition, 580, $yPosition - 20, Zend_Pdf_Page::SHAPE_DRAW_STROKE);
+    //     $style->setFont($boldFont, 12);
+    //     $page->setStyle($style);
+    //     $page->drawText('Product Name', 45, $yPosition - 15, 'UTF-8');
+    //     $page->drawText('Qty Ordered', 160, $yPosition - 15, 'UTF-8');
+    //     $page->drawText('Weight', 250, $yPosition - 15, 'UTF-8');
+    //     // $page->drawText('Description', 350, $yPosition - 15, 'UTF-8');
+    //     $page->drawText('Free Product SKU', 350, $yPosition - 15, 'UTF-8');
+    //     $page->drawText('Image', 490, $yPosition - 15, 'UTF-8');
+    //     $yPosition -= 50;
+
+    //     // Sort configValue based on sortOrder
+    //     // usort($configValue, function ($a, $b) {
+    //     //     return $a['sortOrder'] <=> $b['sortOrder'];
+    //     // });
+
+    //     // Table Rows
+    //     $style->setFont($font, 12);
+    //     $page->setStyle($style);
+    //     foreach ($order->getAllItems() as $item) {
+            
+    //         $productSku = $item->getSku();
+    //         $freeProductSku = '';
+    //         foreach ($configValue as $option) {
+    //             if ($option['sku'] == $productSku) {
+    //                 $freeProductSku = $option['free_product'];
+    //                 break;
+    //             }
+    //         }
+
+    //         // Fetch product image URL
+    //         $product = $this->productRepository->get($productSku);
+    //         $imageUrl = $product->getMediaGalleryImages()->getFirstItem()->getUrl();
+    //         $imagePath = $this->directoryList->getPath(DirectoryList::MEDIA) . '/catalog/product' . $product->getImage();
+    //         $image = Zend_Pdf_Image::imageWithPath($imagePath);
+
+    //         $page->drawText($item->getName(), 45, $yPosition, 'UTF-8');
+    //         $page->drawText((string) $item->getQtyOrdered(), 160, $yPosition, 'UTF-8');
+    //         $page->drawText((string) $item->getWeight(), 250, $yPosition, 'UTF-8');
+    //         // $page->drawText(substr($item->getName(), 0, 60), 350, $yPosition, 'UTF-8'); // Limit the item name to 60 characters
+    //         // $page->drawText($freeProductSku, 350, $yPosition, 'UTF-8');
+
+    //         // Split free products by comma and draw each on a new line
+    //         $freeProducts = explode(',', $freeProductSku);
+    //         foreach ($freeProducts as $freeProduct) {
+    //             $page->drawText(trim($freeProduct), 350, $yPosition, 'UTF-8');
+    //             $yPosition -= 20;
+    //         }
+
+    //         $page->drawImage($image, 490, $yPosition + 10, 520, $yPosition + 40);
+
+    //         $yPosition -= 30;
+    //     }
+
+    //     $page->drawText('Total Qty Ordered: ' . (float) $order->getTotalQtyOrdered(), 350, $yPosition, 'UTF-8');
+    //     $yPosition -= 20;
+    //     $page->drawText('Total Weight: ' . number_format((float) $order->getWeight(), 2) . ' lbs', 350, $yPosition, 'UTF-8');
+
+    //     // Add page to PDF
+    //     $pdf->pages[] = $page;
+
+    //     // Set headers and return PDF as response
+    //     $fileName = 'Pickpacklist_' . $orderId . '.pdf';
+    //     $resultRaw = $this->resultRawFactory->create();
+    //     $resultRaw->setHeader('Content-Type', 'application/pdf', true);
+    //     $resultRaw->setHeader('Content-Disposition', 'attachment; filename=' . $fileName);
+    //     $resultRaw->setContents($pdf->render());
+
+    //     return $resultRaw;
+    // }
+}
+
