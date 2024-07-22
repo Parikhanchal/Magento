@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <Newship>
+                <active>1</active>
+                <title>Magento</title>
+                <name>hello</name>
+                <model>Acp\Shipping\Model\Carrier\NewShipping</model>
+                <price>10</price>
+            </Newship>
+        </carriers>
+    </default>
+</config>
