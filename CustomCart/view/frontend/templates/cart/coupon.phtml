@@ -1,0 +1,23 @@
+<div class="block block-discount">
+    <div class="block-title">
+        <strong><?= __('Apply Discount Code') ?></strong>
+    </div>
+    <div class="block-content">
+        <form class="form form-discount" id="discount-coupon-form" action="<?= $block->getUrl('checkout/cart/couponPost') ?>" method="post">
+            <input name="remove" id="remove-coupon" type="hidden" value="0">
+            <fieldset>
+                <div class="field">
+                    <label for="coupon_code" class="label"><span><?= __('Enter discount code') ?></span></label>
+                    <div class="control">
+                        <input type="text" name="coupon_code" id="coupon_code" class="input-text" value="">
+                    </div>
+                </div>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <button type="submit" class="action apply primary" value="<?= __('Apply Discount') ?>"><span><?= __('Apply Discount') ?></span></button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
