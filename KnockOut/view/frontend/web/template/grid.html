@@ -1,0 +1,12 @@
+<table class="data table base list">
+    <thead>
+        <tr data-bind="foreach: columns">
+            <th data-bind="text: headerText"></th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: items">
+        <tr data-bind="foreach: columns">
+            <td><span data-bind="text:  renderer ? renderer.render($parent) : $parent[rowText] "></span></td>
+        </tr>
+    </tbody>
+</table>
