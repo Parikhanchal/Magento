@@ -1,0 +1,132 @@
+<h2 class="page-one">Welcome to user</h2>
+
+<br>
+<button class="btn">default one</button>
+<button class="btn">default two</button>
+
+<br><hr>
+
+<form method="post" action="<?= $this->getUrl('user1/index/save') ?>" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="entity_id">
+   
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="is_active">Is Active:</label>
+    <select id="is_active" name="is_active" required>
+        <option value="1">Active</option>
+        <option value="0">Inactive</option>
+    </select><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label>Gender:</label><br>
+    <input type="radio" id="male" name="gender" value="male"><label for="male">Male</label>
+    <input type="radio" id="female" name="gender" value="female"><label for="female">Female</label>
+    <input type="radio" id="other" name="gender" value="other"><label for="other">Other</label><br><br>
+
+    <label for="birth_date">Date of Birth:</label>
+    <input type="date" id="birth_date" name="birth_date" required><br><br>
+
+    <label for="profile_image">Profile Image:</label>
+    <input type="file" id="profile_image" name="profile_image" accept="image/*"><br><br>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address"><br><br>
+
+    <label for="hobbies">Hobbies:</label>
+    <input type="text" id="hobbies" name="hobbies"><br><br>
+    
+    <label for="subscription">Subscription:</label>
+    <input type="checkbox" id="subscription" name="subscription" value="1">Yes<br><br>
+
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city"><br><br>
+
+    <div class="field country">
+        <label for="country" class="label">
+            <span>Country:</span>
+        </label>
+        <div class="control">
+            <?= $block->getCountryHtmlSelect() ?>
+        </div>
+    </div>
+    <br><br>
+
+    <label for="postcode">Postcode:</label>
+    <input type="text" id="postcode" name="postcode"><br><br>
+
+    <label for="customer_group">Customer Group:</label>
+    <input type="text" id="customer_group" name="customer_group"><br><br>
+
+    <input type="submit" value="Submit" name="submit">
+</form>
+
+<script type="text/x-magento-init">
+    {
+        "#country": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?= /* @noEscape */ $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>,
+                "regionListId": "#region",
+                "form": "#form-validate",
+                "regionJson": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
+                "defaultRegion": "<?= (int) $block->getRegionId() ?>",
+                "countriesWithOptionalZip": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>
+            }
+        }
+    }
+</script>
+
+
+
+
+<!-- delete all -->
+<!-- <form action="< ?php echo $block->getUrl('user1/index/deleteall') ?>" method="post">
+    <button type="submit" name="submit" class="action primary">
+        Delete All
+    </button>
+</form> -->
+
+
+<!-- <form action="< ?php echo $block->getUrl('user1/index/index') ?>" method="GET">
+    <label>Select Status:</label> 
+    <select name="user_status" id="user_status">
+        <option value="all">All</option>
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
+    </select><br>
+    <br>
+    <button type="submit" name="submit">Filter</button>
+    <br><br> 
+
+    <label for="sorting">Select Status:</label>
+    <select name="sorting" id="sorting">
+        <option value="ASC">Ascending</option>
+        <option value="DESC">Descending</option>
+    </select><br><br>
+    <button type="submit" name="submit">Sort</button>
+</form>  -->
+
+
+<h2>view Data</h2>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Gender</th>
+        <th>Date of Birth</th>
+        <th>Is Active</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <?php
+    echo $block->display();
+    ?>
+</table>
+
+
+<br>
+<br>
+<br><hr>

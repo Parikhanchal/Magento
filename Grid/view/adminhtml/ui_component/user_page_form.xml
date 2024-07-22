@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">user_page_form.user_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Page Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save" class="Ap\Grid\Block\Adminhtml\Customer\SaveButton"/>
+            <button name="back" class="Ap\Grid\Block\Adminhtml\Customer\BackButton"/>
+        </buttons>
+        <namespace>user_page_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>user_page_form.user_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="user_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="grid1/*/save"/>
+        </settings>
+        <dataProvider class="Ap\Grid\Model\Cust\DataProvider" name="user_form_data_source">
+            <settings>
+                <requestFieldName>entity_id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <fieldset name="customer">
+        <settings>
+            <label/>
+        </settings>
+
+        <field name="entity_id" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+                <dataScope>entity_id</dataScope>
+            </settings>
+        </field>
+
+        <field name="name" sortOrder="10" formElement="input">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true"> Name</label>
+                <dataScope>name</dataScope>
+            </settings>
+        </field>
+
+        <field name="email" sortOrder="25" formElement="input">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="validate-email" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Email</label>
+                <dataScope>email</dataScope>
+            </settings>
+        </field>
+
+        <field name="gender" sortOrder="35" formElement="radioset">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Gender</label>
+                <dataScope>gender</dataScope>
+            </settings>
+            <formElements>
+                <radioset>
+                    <settings>
+                        <options class="Ap\Grid\Model\Config\Source\Gender" />
+                    </settings>
+                </radioset>
+            </formElements>
+        </field>
+
+        <field name="birth_date" sortOrder="30" formElement="date">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>date</dataType>
+                <label translate="true">Birth Date</label>
+                <dataScope>birth_date</dataScope>
+            </settings>
+        </field>
+
+        <field name="profile_image" sortOrder="40" formElement="imageUploader">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">Profile Image</item>
+                </item>
+            </argument>
+            <settings>
+                <elementTmpl>ui/form/element/uploader/image</elementTmpl>
+                <dataType>string</dataType>
+                <label translate="true">Profile Image</label>
+                <visible>true</visible>
+                <validation>
+                    <!-- <rule name="required-entry" xsi:type="boolean">true</rule> -->
+                </validation>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>true</required>
+                        <uploaderConfig>
+                            <param xsi:type="url" name="url" path="grid1/index/upload" />
+                        </uploaderConfig>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <allowedExtensions>jpg jpeg png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+
+        <field name="address" sortOrder="30" formElement="textarea">
+            <settings>
+                <dataType>string</dataType>
+                <label translate="true">Address</label>
+                <dataScope>address</dataScope>
+            </settings>
+        </field>
+
+        <field name="hobbies" sortOrder="30" formElement="multiselect">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>string</dataType>
+                <label translate="true">Hobbies</label>
+                <dataScope>hobbies</dataScope>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Ap\Grid\Model\Config\Source\Hobbies" />
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+
+        <field name="is_active" formElement="select" sortOrder="30">
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Is Active</label>
+                <dataScope>is_active</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Ap\Grid\Model\Config\Source\Active" />
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <field name="customer_group" sortOrder="40" formElement="multiselect">
+            <settings>
+                <label translate="true">Customer Group</label>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Magento\Customer\Model\Customer\Source\GroupSourceInterface"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+
+        <field name="subscription" sortOrder="35" formElement="checkboxset">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Subscription</label>
+                <dataScope>subscription</dataScope>
+            </settings>
+            <formElements>
+                <checkboxset>
+                    <settings>
+                        <options class="Ap\Grid\Model\Config\Source\Subscription" />
+                    </settings>
+                </checkboxset>
+            </formElements>
+        </field>
+
+        <field name="city" sortOrder="50" formElement="input">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">City</label>
+                <dataScope>city</dataScope>
+            </settings>
+        </field>
+
+        <field name="country" sortOrder="70" formElement="input">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Country</label>
+                <dataScope>country</dataScope>
+            </settings>
+        </field>
+
+        <field name="postcode" sortOrder="80" formElement="input">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Postcode</label>
+                <dataScope>postcode</dataScope>
+            </settings>
+        </field>
+
+    </fieldset>
+
+</form>

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="custom_user" resource="default" engine="innodb" comment="User Table">
+
+        <column xsi:type="smallint" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID" />
+
+        <column name="name" nullable="true" xsi:type="varchar" length="50" comment="Custom Name" />
+
+        <column xsi:type="varchar" name="email" nullable="false" length="255" comment="Email" />
+
+        <column xsi:type="varchar" name="gender" nullable="false" length="10" comment="Gender" />
+
+        <column xsi:type="date" name="birth_date" nullable="false" comment="Birth date" />
+
+        <column xsi:type="varchar" name="profile_image" nullable="true" length="255" comment="Profile image" />
+
+        <column xsi:type="text" name="address" nullable="false" comment="Address" />
+
+        <column xsi:type="smallint" name="is_active" nullable="false"  comment="Is Active" />
+
+        <column xsi:type="varchar" name="hobbies" nullable="false" length="255" comment="Hobbies" />
+
+        <column xsi:type="varchar" name="city" nullable="false" length="255" comment="table city Identifier" />
+
+        <column xsi:type="varchar" name="subscription" nullable="false" length="255" comment="table region Identifier" />
+
+        <column xsi:type="varchar" name="country" nullable="false" length="255" comment="table country Identifier" />
+
+        <column xsi:type="int" name="postcode" nullable="false" comment="table postcode Identifier" />
+
+        <column xsi:type="int" name="customer_group" unsigned="true" nullable="false" identity="false" comment="Custom Customer group"/>
+
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="table Creation Time" />
+
+        <column xsi:type="timestamp" name="updated_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="table Modification Time" />
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id" />
+        </constraint>
+
+    </table>
+
+</schema>
+

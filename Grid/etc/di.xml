@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+
+                <item name="user_page_listing_data_source" xsi:type="string">Ap\Grid\Model\ResourceModel\Customer\Grid\Collection</item>
+
+                <item name="user_page_form_data_source" xsi:type="string">Ap\Grid\Model\ResourceModel\Customer\Grid\Collection</item>
+
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Ap\Grid\Model\ResourceModel\Customer\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">custom_user</argument>
+            <argument name="resourceModel" xsi:type="string">Ap\Grid\Model\ResourceModel\Customer</argument>
+        </arguments>
+    </virtualType>
+
+</config>

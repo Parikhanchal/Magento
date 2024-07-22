@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+    <config>
+     <!-- <type name="Magento\Checkout\Controller\Index\Index">
+        <plugin name="ap_eventplugin_checkout_controoler" type="Ap\EventPlugin\Plugin\CustomerPlugin" sortOrder="10" />
+    </type>     -->
+</config>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ap_Grid::page" title="New Grid" translate="title" module="Ap_Grid" sortOrder="10" resource="Ap_Grid::page"/>
+ 
+        <add id="Ap_Grid::name" title="Custom User" translate="title" module="Ap_Grid" sortOrder="30" parent="Ap_Grid::page" action="grid1/Index" resource="Ap_Grid::name"/>
+    </menu>
+</config>
