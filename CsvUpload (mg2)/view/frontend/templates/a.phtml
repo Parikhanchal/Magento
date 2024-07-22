@@ -1,0 +1,188 @@
+<form id="csv-upload-form" action="<?= $block->getSubmitUrl(); ?>" method="post" enctype="multipart/form-data">
+    <input type="file" name="upload_file" />
+    <button type="submit">Upload</button>  
+    &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+    <a href="<?= $block->getSampleUrl(); ?>" download="sample.csv" style="margin-left: 20px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;">Download Sample</a>
+</form>
+
+<div id="sku-container"></div>
+<div id="category-container"></div>
+<div id="sku-data-container"></div>
+
+
+
+
+<script type="text/javascript">
+require([
+    'jquery', 
+    'mage/url',
+    'Magento_Customer/js/customer-data'
+], function($, urlBuilder, customerData) {
+    var csvData = [];
+    var categories = <?= json_encode($block->getCategories()) ?>;
+
+    $('#csv-upload-form').on('submit', function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                if (response.success) {
+                    csvData = response.skuData;
+                    var skusHtml = '<form id="sku-form">';
+                    response.skus.forEach(function(sku) {
+                        skusHtml += '<div><input type="checkbox" name="skus[]" value="' + sku + '"> ' + sku + '</div>';
+                    });
+                    skusHtml += '<br/>';
+                    skusHtml += '<button type="submit">Submit</button>';
+                    skusHtml += '&nbsp;&nbsp;&nbsp;';
+                    skusHtml += '<button id="clear-button">Clear</button>';
+                    skusHtml += '<br/>';
+                    skusHtml += '</form>';
+
+                    $('#sku-container').html(skusHtml);
+                } else {
+                    alert(response.message);
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '#clear-button', function() {
+        $('input[name="skus[]"]:checked').prop('checked', false);
+    });
+
+    $(document).on('submit', '#sku-form', function(e) {
+        e.preventDefault();
+        var selectedSkus = [];
+        $('input[name="skus[]"]:checked').each(function() {
+            selectedSkus.push($(this).val());
+        });
+
+        if (selectedSkus.length > 0) {
+
+            // Disable checkboxes after submission
+            $('input[name="skus[]"]').prop('disabled', true);
+            
+            var categoriesHtml = '<select id="category-select"><option value="">Select Category</option>';
+            categories.forEach(function(category) {
+                categoriesHtml += '<option value="' + category.value + '">' + category.label + '</option>';
+            });
+            categoriesHtml += '</select>';
+            $('#category-container').html(categoriesHtml + '<br/><button id="submit-category">Submit</button><br/>');
+        }
+    });
+
+    $(document).on('click', '#submit-category', function() {
+        var selectedCategoryValue = $('#category-select').val();
+        var selectedCategory = categories.find(function(category) {
+            return category.value == selectedCategoryValue;
+        });
+
+        if (selectedCategory) {
+            var selectedSkus = [];
+            $('input[name="skus[]"]:checked').each(function() {
+                selectedSkus.push($(this).val());
+            });
+
+            var skusHtml = '<table><tr><th>SKU</th><th>Price</th><th>Qty</th><th>Total Price</th><th>Action</th></tr>';
+            selectedSkus.forEach(function(sku) {
+                var skuData = csvData.find(function(data) {
+                    return data.sku === sku;
+                });
+                if (skuData) {
+                    var prefixedSku = selectedCategory.label + '-' + skuData.sku;
+                    var totalPrice = skuData.qty * skuData.price;
+                    skusHtml += '<tr data-sku="' + prefixedSku + '"><td>' + prefixedSku + '</td><td>' + skuData.price + '</td><td><button class="decrease-qty">-</button> <span class="sku-qty" data-sku="' + prefixedSku + '">' + skuData.qty + '</span> <button class="increase-qty">+</button></td><td class="total-price" data-sku="' + prefixedSku + '">' + totalPrice + '</td><td><button class="remove-sku">Remove</button></td></tr>';
+                }
+            });
+            skusHtml += '</table>';
+            skusHtml += '<div style="margin-top: 10px;">';
+            skusHtml += '<button id="add-to-cart">Add to Cart</button>';
+            skusHtml += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+            skusHtml += '<button id="reset-form">Reset</button>';
+            skusHtml += '</div>';
+            $('#sku-data-container').html(skusHtml);
+        }
+    });
+
+    $(document).on('click', '.increase-qty', function() {
+        var qtyElement = $(this).siblings('.sku-qty');
+        var currentQty = parseInt(qtyElement.text());
+        qtyElement.text(currentQty + 1);
+
+        updateTotalPrice($(this).closest('tr').data('sku'), currentQty + 1);
+    });
+
+    $(document).on('click', '.decrease-qty', function() {
+        var qtyElement = $(this).siblings('.sku-qty');
+        var currentQty = parseInt(qtyElement.text());
+        if (currentQty > 0) {
+            qtyElement.text(currentQty - 1);
+
+            updateTotalPrice($(this).closest('tr').data('sku'), currentQty - 1);
+        }
+    });
+
+    $(document).on('click', '.remove-sku', function() {
+        $(this).closest('tr').remove();
+    });
+
+    $(document).on('click', '#add-to-cart', function() {
+        var rows = $('#sku-data-container table tr');
+        var skus = [];
+        rows.each(function(index, row) {
+            if (index === 0) return; // Skip header row
+            var sku = $(row).data('sku');
+            var qty = parseInt($(row).find('.sku-qty').text());
+            skus.push({ sku: sku, qty: qty });
+        });
+
+        skus.forEach(function(item) {
+        $.ajax({
+            url: '<?= $block->getUrl('csvupload/index/addToCart') ?>', 
+            type: 'POST',
+            data: {
+                sku: item.sku, // SKU of the product to add to cart
+                qty: item.qty  // Quantity of the product
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert(response.message); // Display success message
+                    customerData.reload(['cart'], true); // Refresh the cart data
+                } else {
+                    alert(response.message); // Display error message
+                }
+            },
+            error: function() {
+                alert('Error adding product to cart.'); // Alert if there's an AJAX error
+            }
+            
+            });
+        });
+    });
+
+
+    $(document).on('click', '#reset-form', function() {
+        $('#csv-upload-form')[0].reset();
+        $('#sku-container').empty();
+        $('#category-container').empty();
+        $('#sku-data-container').empty();
+        csvData = [];
+    });
+
+    function updateTotalPrice(sku, qty) {
+        var skuData = csvData.find(function(data) {
+            return data.sku === sku.split('-')[1];
+        });
+        var totalPriceElement = $('.total-price[data-sku="' + sku + '"]');
+        var totalPrice = qty * skuData.price;
+        totalPriceElement.text(totalPrice);
+    }
+});
+</script>
