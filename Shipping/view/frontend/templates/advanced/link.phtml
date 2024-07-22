@@ -1,0 +1,219 @@
+<button id="custom_btn" class="custom_btn">Order</button>
+<button id="custom_edit_btn" class="custom_edit_btn">Edit Order</button>
+ 
+<div style="display: none;" id="modal-html">
+    <div id="popup">
+        <label><input type="radio" name="option" value="Shipping"> Shipping </label><br>
+        <label><input type="radio" name="option" value="Pickup"> Pickup </label><br>
+        <label><input type="radio" name="option" value="Dealer"> Dealer Arrange shipping </label><br>
+    </div>
+</div>
+
+<div style="display: none;" id='modal-html-active'>
+    <p>You have active quote</p>
+    
+</div>
+
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/modal',    //for popup modal
+        'mage/storage'  //for ajax request
+    ], function(
+        $,
+        modal,
+        storage
+    ) {
+        // start
+        // for popup button,active zero (deactive hoga tab ye apply hoga)
+        // Define modal options
+        var beforeOrder = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            buttons: [{
+                text: $.mage.__('Save new Quote'),
+                class: 'continueBtn',
+                // click: function() {
+                //     var selectedOption = $('input[name=option]:checked').val();
+                //     if (selectedOption) {
+                //         $('#modal-html').modal("closeModal");
+                //     } else {
+                //         alert('Please select an option.');
+                //     }
+                // }
+                    click: function() 
+                    {
+                    var selectedOption = $('input[name=option]:checked').val();
+                    if (selectedOption) 
+                    {
+                        storage.post(
+                            'ship/index/saveshippingoption',
+                            JSON.stringify({                         
+                            "field":"option",
+                            "value": selectedOption}),
+                            true
+                        ).done(function(response) {
+                            $('#modal-html').modal("closeModal");
+                        }).fail(function(response) {
+                            alert('Error occurred while saving shipping option.');
+                        });
+                    } 
+                    else {
+                        alert('Please select an option.');
+                    }
+                }
+            },
+            {
+                text: $.mage.__('Close Popup'),
+                    class: 'continueBtn',
+                    click: function() {
+                        $('#modal-html').modal("closeModal");
+                }
+            }
+        ]
+        };
+        // end
+        
+ 
+        // placeorder cha raha ho to delete and close ka button show hoga
+        var afterOrder = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            buttons: [{
+                    // text: $.mage.__('Delete Quote'),
+                    // class: 'continueBtn',
+                    // click: function() {
+                    //     $('#modal-html-active').modal("closeModal");
+                    // }
+                    text: $.mage.__('Delete Quote'),
+                    class: 'continueBtn',
+                    click: function() {
+                        storage.post(
+                            'ship/index/Deletequote',
+                        ).done(function(response) {
+                            $('#modal-html-active').modal("closeModal");
+                            $('#modal-html').modal().modal('openModal');
+ 
+                            
+                        }).fail(function(response) {
+                            alert('Error occurred.');
+                        });
+                    }
+                },
+                {
+                    text: $.mage.__('Close Popup'),
+                    class: 'continueBtn',
+                    click: function() {
+                        $('#modal-html-active').modal("closeModal");
+                    }
+                }
+            ]
+        };
+
+        // for edit
+        var editOrder = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                buttons: [{
+                    text: $.mage.__('Confirm'),
+                    class: 'editBtn',
+                    click: function () {
+                        var editOption = $('input[name="option"]:checked').val();
+                        if (editOption) {
+                        storage.post(
+                            'ship/index/save',
+                            JSON.stringify({
+                                "field":'Ship Type',
+                                "value":editOption
+                            }),
+                            true
+                        ).done(function(response) {
+                            // alert('Success edit');
+                            $('#modal-html').modal("closeModal");
+                        }).fail(function(response) {
+                            // alert('edit Error occurred.');
+                        });
+                        } else {
+                            alert('Please select an option.');
+                        }
+                    }
+                }]
+            };
+        
+
+            
+            
+
+        // Initialize modals
+        $('#modal-html').modal(beforeOrder);
+        $('#modal-html-active').modal(afterOrder);
+
+        // AJAX call when the button is clicked
+        // ajax call
+        //click on button
+        $(".custom_btn").click(function() {
+            storage.get(
+                'ship/index/index',
+                '',
+                true 
+                // return response controller file
+            ).done(function(response) {
+                if (response.isActive == 0) {
+                    $('#modal-html').modal("openModal");
+                } else if (response.isActive == 1) {
+                    $('#modal-html-active').modal("openModal");
+                } else {
+                    alert('Else occurred.');
+                }
+            }).fail(function(response) {
+                alert('Error occurred.');
+            });
+            // 0 - 3 radio buttons - deactivat
+            // 1 - placeorder first etc - activat
+            
+            
+            // for show popup button
+            // if(window.checkoutConfig.custom_shipping_type == '')
+            // {
+            //     alert('Please select');
+            //     $('#modal-html').modal(beforeOrder).modal('openModal');
+            // }
+
+            
+            // for edit button
+            $("#custom_edit_btn").click(function() {
+                storage.get(
+                        'ship/index/edit',
+                        '',
+                        true
+                        // return response controller file
+                    ).done(function(response) {
+                        if (response.editOption !== undefined) {
+                            $('input[name="option"][value="' + response.editOption + '"]').prop('checked', true);
+                            $('#modal-html').modal(editOrder).modal("openModal");
+     
+                        }
+                    }).fail(function(response) {
+                        // alert('custom_edit_btn Error occurred.');
+                    });
+                });
+
+            if (window.checkoutConfig.custom_shipping_type == null) {
+                $('#modal-html').modal(beforeOrder).modal('openModal');
+            }
+            // if (window.checkoutConfig.custom_shipping_type === '') {
+            //     window.location.href = 'checkout/cart/index';
+            //     $('#modal-html').modal(beforeOrder).modal('openModal'); 
+            //      // Redirect to checkout cart page
+            // } else {
+            //     alert('custom_edit_btn Error occurred')
+            // }
+
+            // edit quote
+            
+        });
+    });
+</script>

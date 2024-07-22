@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="quote">
+        <column name="custom_shipping" nullable="true" xsi:type="varchar" length="50" comment="custom shipping "/>
+  
+        <column name="custom_shipping_type" nullable="true" xsi:type="varchar" length="50" comment="custom shipping Type "/>
+
+        <column name="custom_residential" nullable="true" xsi:type="varchar" length="50" comment="Custom Residential customer"/>
+
+        <column name="custom_liftgate" nullable="true" xsi:type="varchar" length="50" comment="custom Liftgate for customer"/>
+
+        <column name="custom_delivery" nullable="true" xsi:type="varchar" length="50" comment="custom Delivery for customer"/>
+    </table>
+
+    <table name="sales_order">
+  
+        <column name="custom_shipping_type" nullable="true" xsi:type="varchar" length="50" comment="custom shipping Type "/>
+
+        <column name="custom_residential" nullable="true" xsi:type="varchar" length="50" comment="custom Residential customer"/>
+
+        <column name="custom_liftgate" nullable="true" xsi:type="varchar" length="50" comment="custom Liftgate for customer"/>
+
+        <column name="custom_delivery" nullable="true" xsi:type="varchar" length="50" comment="custom Delivery for customer"/>
+    </table>
+
+</schema>
+
+
+<!-- SELECT entity_id, customer_id, customer_email, is_active, custom_shipping_type,custom_shipping,custom_residential,custom_liftgate,custom_delivery FROM `quote` ORDER BY entity_id DESC -->
+
+
+<!-- SELECT entity_id, customer_id, custom_shipping_type,custom_residential,custom_liftgate,custom_delivery FROM `sales_order` ORDER BY entity_id DESC -->

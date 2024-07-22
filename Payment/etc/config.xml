@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+
+        <carriers>
+            <newship>
+                <active>0</active>
+                <title>Magento12</title>
+                <name>hello12</name>
+                <model>Kitchen\Payment\Model\Carrier\NewShipping</model>
+                <price>10</price>
+            </newship>
+        </carriers>
+
+        <payment>
+            <KitchenPayOffline>
+                <active>1</active>
+                <model>Kitchen\Payment\Model\KitchenPayOffline</model>
+                <order_status>pending</order_status>
+                <title>test Offline Cash On Delivery</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </KitchenPayOffline>
+
+            <AllCustomerPayOffline>
+                <active>2</active>
+                <model>Kitchen\Payment\Model\AllCustomerPayOffline</model>
+                <order_status>pending</order_status>
+                <title>test customer Offline Cash On Delivery</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </AllCustomerPayOffline>
+        </payment>
+
+
+    </default>
+
+</config>

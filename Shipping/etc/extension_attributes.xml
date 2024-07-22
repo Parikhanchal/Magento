@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+  <extension_attributes for="Magento\Sales\Api\Data\OrderInterface">
+    <attribute code="custom_shipping_type" type="string"/>
+    <attribute code="custom_residential" type="string"/>
+    <attribute code="custom_liftgate" type="string"/>
+    <attribute code="custom_delivery" type="string"/>
+  </extension_attributes>
+</config>
