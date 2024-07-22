@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <body>
+
+        <referenceContainer name="content">
+            <block class="Kitchen\Company\Block\Product\ListProduct" 
+                name="category.products.list1" as="product_list1" template="Kitchen_Company::test/list.phtml" cacheable="false">
+            </block>
+        </referenceContainer>
+    </body>
+</page>
+

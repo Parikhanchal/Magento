@@ -1,0 +1,25 @@
+<h2 class="page-one">Welcome </h2>
+
+<form action="<?= $this->getUrl('user/staff/save') ?>" method="post">
+
+<label for="firstname">Parent Id:</label>
+<input type="text" name="parent_id" value = "<?= $block->getIds() ?>">
+ 
+<input type="hidden" name="entity_id" value ="<?php echo $this->getRequest()->getparam("entity_id");?>">
+
+    <label for="firstname">Firstname:</label>
+    <input type="text" name="firstname" ><br><br>
+
+    <label for="lastname">Lastname:</label>
+    <input type="text" name="lastname"><br><br>
+
+    <label for="email">Email:</label>
+    <input type="text" name="email"><br><br>
+
+    <label for="password">Password:</label>
+    <input type="text" name="password"><br><br>
+
+    <br>
+    <input type="submit" value="Submit" name="submit">
+
+</form> <br>

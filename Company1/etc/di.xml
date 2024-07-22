@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<!-- for change product price with Plugin -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	        <type name="Magento\Catalog\Model\Product">
+            <plugin name="change_product" type="Kitchen\Company\Plugin\ProductCustomePrice" sortOrder="1" disabled="true"/>
+        </type>
+</config>

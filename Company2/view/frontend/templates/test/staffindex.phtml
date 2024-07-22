@@ -1,0 +1,25 @@
+<h2 class="page-one">Welcome to staff Page</h2>
+<br>
+
+<form action="<?= $this->getUrl('user/staff/newpage') ?>" method="post">
+<button type="submit">Add new Staff</button>
+    
+</form> <br>
+
+
+<h2>view Data</h2>
+<table>
+    <tr>
+        <th>Parent Id</th>
+        <th>Entity Id</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        
+    </tr>
+    <?php
+    echo $block->display();
+    ?>
+</table>
