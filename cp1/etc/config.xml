@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <ship>
+                <active>0</active>
+                <model>Cp\User\Model\Carrier</model>
+               <title>Custom</title>
+               <name>Custom Shippping</name>
+               <price>10</price>
+            </ship>
+        </carriers>
+    
+    </default>
+</config>

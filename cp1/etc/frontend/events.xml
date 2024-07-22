@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_postdispatch">
+        <observer name="user_event" instance="Cp\User\Observer\Event" />
+    </event>
+     <event name="user_event_dispatch">
+        <observer name="user_custom" instance="Cp\User\Observer\ChangeDisplayText" />
+    </event>
+     <event name="customer_register_success">
+        <observer name="sr_customer_account_createPost" instance="Cp\User\Observer\UserRegisterSuccess" />
+    </event>
+    <!-- <event name="checkout_cart_product_add_after">
+        <observer name="customprice" instance="Cp\User\Observer\CustomPrice" />
+    </event> -->
+   
+
+</config>

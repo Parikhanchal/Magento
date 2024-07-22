@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+	<route method="GET" url="/V1/mageplaza-helloworld/post">
+		<service class="Cp\User\Api\PostManagementInterface" method="getPost"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+    	<route method="GET" url="/V1/cp-user/post">
+		<service class="Cp\User\Api\CpApiInterface" method="getInfo"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+		<route method="POST" url="/V1/cp-user">
+		<service class="Cp\User\Api\CpApiInterface" method="save"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route method="GET" url="/V1/cp-user/get">
+		<service class="Cp\User\Api\CpApiInterface" method="getUsers"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	<route method="DELETE" url="/V1/cp-user/delete/:id">
+		<service class="Cp\User\Api\CpApiInterface" method="deleteUser"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+		<route method="PUT" url="/V1/cp-user/update">
+		<service class="Cp\User\Api\CpApiInterface" method="updateUser"/>
+		<resources>
+			<resource ref="anonymous"/>
+		</resources>
+	</route>
+	
+	
+</routes>

@@ -1,0 +1,37 @@
+{
+    "newtable": {
+        "column": {
+            "user_id": true,
+            "name": true,
+            "email": true,
+            "password": true,
+            "creation_time": true,
+            "update_time": true,
+            "is_active": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "hello": [],
+    "cp_customer": {
+        "column": {
+            "customer_id": true,
+            "first_name": true,
+            "last_name": true,
+            "email": true,
+            "gender": true,
+            "birth_date": true,
+            "profile_image": true,
+            "address": true,
+            "is_active": true,
+            "hobbies": true,
+            "newsletter_subscription": true,
+            "creation_time": true,
+            "update_time": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

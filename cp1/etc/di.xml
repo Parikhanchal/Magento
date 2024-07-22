@@ -1,0 +1,64 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="user_page_listing_data_source" xsi:type="string">Cp\User\Model\ResourceModel\Gallery\Grid\Collection</item>
+                <item name="user_form_data_source" xsi:type="string">Cp\User\Model\ResourceModel\Gallery\Grid\Collection</item>
+                <item name="customer_page_listing_data_source" xsi:type="string">Cp\User\Model\ResourceModel\Customer\Grid\Collection</item>
+                <item name="cp_cron_listing_data_source" xsi:type="string">Cp\User\Model\ResourceModel\Schedule\Grid\Collection</item>
+                <item name="test_page_listing_data_source" xsi:type="string">Cp\User\Model\ResourceModel\Customer\Grid\Collection</item>
+
+                
+            </argument>
+            
+        </arguments>
+    </type>
+    <virtualType name="Cp\User\Model\ResourceModel\Gallery\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">user</argument>
+            <argument name="resourceModel" xsi:type="string">Cp\User\Model\ResourceModel\Gallery</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Cp\User\Model\ResourceModel\Customer\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cp_customer</argument>
+            <argument name="resourceModel" xsi:type="string">Cp\User\Model\ResourceModel\Customer</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Cp\User\Model\ResourceModel\Schedule\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cron_schedule</argument>
+            <argument name="resourceModel" xsi:type="string">Cp\User\Model\ResourceModel\Schedule</argument>
+        </arguments>
+    </virtualType>
+    
+
+    <!-- <preference for="Magento\Checkout\Block\Onepage\Link" type="Cp\User\Block\Onepage\Link" /> -->
+    <!-- <preference for="Magento\Customer\Controller\Account\LoginPost" type="Cp\User\Controller\Account\LoginPost" /> -->
+    <type name="Magento\Customer\Controller\Account\LoginPost">
+            <plugin name="cp_user_controller_account_loginpost"
+                    type="Cp\User\Plugin\CustomLogin" sortOrder="10" />
+        </type>
+<type name="Magento\Catalog\Model\Product">
+        <plugin name="change_product" type="Cp\User\Plugin\CustomCart" sortOrder="1" />
+    </type> 
+    <!-- <type name="Magento\Catalog\Block\Product\View">
+        <plugin name="custom_product_price_plugin" type="Cp\User\Plugin\CustomProductPrice" sortOrder="1" disabled="false"/>
+    </type> -->
+
+
+    <type name="Magento\Framework\Console\CommandList">
+     <arguments>
+        <argument name="commands" xsi:type="array">
+            <item name="newping" xsi:type="object">Cp\User\Model\CustomPing</item>
+        </argument>
+    </arguments>
+    </type>
+
+    <preference for="Cp\User\Api\PostManagementInterface" type="Cp\User\Model\PostManagement"/>
+    <preference for="Cp\User\Api\CpApiInterface" type="Cp\User\Model\CpApi"/>
+
+    
+    
+    
+</config>

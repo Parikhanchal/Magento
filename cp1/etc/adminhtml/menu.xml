@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Cp_User::user_details" title="UserDetails" translate="title" module="Cp_User" sortOrder="10" dependsOnModule="Cp_User" resource="Cp_User::user_details"/>
+        <add id="Cp_User::user_grid" title="Grid" translate="title" module="Cp_User" sortOrder="20" parent="Cp_User::user_details" action="user2/Page" resource="Cp_User::user_grid"/>
+        <!-- <add id="Cp_User::user_pinfo" title="Personal" translate="title" module="Cp_User" sortOrder="30" parent="Cp_User::user_details" action="user2/Page" resource="Cp_User::user_pinfo"/> -->
+        <add id="Cp_User::user_ainfo" title="Account" translate="title" module="Cp_User" sortOrder="40" parent="Cp_User::user_details" action="user2/Account" resource="Cp_User::user_ainfo"/>
+
+        <add id="Cp_User::org_details" title="OrganizationDetails" translate="title" module="Cp_User" sortOrder="20" dependsOnModule="Cp_User" resource="Cp_User::org_details"/>
+        <add id="Cp_User::user_orginfo" title="OrgInfo" translate="title" module="Cp_User" sortOrder="30" parent="Cp_User::org_details"  action="User/orginfo" resource="Cp_User::user_orginfo"/>
+        
+        <add id="Cp_User::customer_details" title="Customer" translate="title" module="Cp_User" sortOrder="10" dependsOnModule="Cp_User" resource="Cp_User::customer_details"/>
+        <add id="Cp_User::manage_customer" title="ManageCustomer" translate="title" module="Cp_User" sortOrder="30" parent="Cp_User::customer_details"  action="user2/customerpage" resource="Cp_User::manage_customer"/>
+        <add id="Cp_User::manage_user" title="Manage User" translate="title" module="Cp_User" sortOrder="40" parent="Cp_User::customer_details"  action="user2/usergrid" resource="Cp_User::manage_user"/>
+   
+   
+        <add id="Cp_User::cron_menu" title="Cron" translate="title" module="Cp_User" sortOrder="10" dependsOnModule="Cp_User" resource="Cp_User::cron_menu"/>
+        <add id="Cp_User::cron_list" title="Cron List" translate="title" module="Cp_User" sortOrder="40" parent="Cp_User::cron_menu"  action="user2/cron" resource="Cp_User::cron_list"/>
+
+<!-- 
+        <add id="Cp_User::test_menu" title="Test" translate="title" module="Cp_User" sortOrder="10" dependsOnModule="Cp_User" resource="Cp_User::test_menu"/>
+        <add id="Cp_User::test_list" title="Test List" translate="title" module="Cp_User" sortOrder="40" parent="Cp_User::test_menu"  action="user2/staffgrid" resource="Cp_User::staff_list"/>    -->
+    </menu>
+</config>

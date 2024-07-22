@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="newtable" onCreate="migrateDataFromAnotherTable(user)">
+        <column xsi:type="smallint" name="user_id" unsigned="false" nullable="false" identity="true"
+                comment="User ID"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="user name" disabled="true"/>
+        <column xsi:type="varchar" name="email" nullable="false" length="255" comment="user email"/>
+        <column xsi:type="smallint" name="password" nullable="true" comment="user password"/>
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Block Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Block Modification Time"/>
+        <column xsi:type="smallint" name="is_active" unsigned="false" nullable="false" identity="false"
+                default="1" comment="Is Block Active"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="user_id"/>
+        </constraint>
+        
+    </table>
+    
+   <table name="cp_customer">
+        <column xsi:type="int" name="customer_id" unsigned="false" nullable="false" identity="true"
+                comment="customer id"/>
+        <column xsi:type="varchar" name="first_name" nullable="false" length="255" comment="First Name"/>
+        <column xsi:type="varchar" name="last_name" nullable="false" length="255" comment="Last Name"/>
+        <column xsi:type="varchar" name="email" nullable="false" length="255" comment="Customer Email"/>
+        <column xsi:type="varchar" name="gender" nullable="false" length="255" comment="Customer Gender"/>
+        <column xsi:type="date" name="birth_date" nullable="false" comment="Birth date"/>
+        <column xsi:type="varchar" name="profile_image" nullable="false" length="255" comment="Image"/>
+        <column xsi:type="varchar" name="address" nullable="false" length="255" comment="address"/>
+        <column xsi:type="smallint" name="is_active" unsigned="false" nullable="false" identity="false"
+                default="1" comment="Is Customer Active"/>
+        <column xsi:type="varchar" name="hobbies" nullable="false" length="255" comment="hobbies"/>
+        <column xsi:type="varchar" name="newsletter_subscription" nullable="false" length="255"/>
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Block Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Block Modification Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="customer_id"/>
+        </constraint>
+        
+    </table>
+
+
+   <!-- <table name="cp_address">
+        <column xsi:type="int" name="entity_id" unsigned="false" nullable="false" identity="true"
+                comment="entity_id"/>
+        <column xsi:type="int" name="customer_id" nullable="false" length="255" comment="customer_id"/>
+        <column xsi:type="varchar" name="street" nullable="false" length="255" comment="street"/>
+        <column xsi:type="varchar" name="city" nullable="false" length="255" comment="city"/>
+        <column xsi:type="varchar" name="region" nullable="false" length="255" comment="region"/>
+        <column xsi:type="int" name="postcode" nullable="false" length="100" comment="postcode"/>
+        <column xsi:type="varchar" name="country" nullable="false" length="255" comment="country"/>
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Block Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Block Modification Time"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        
+    </table>
+     -->
+    </schema>
+  
