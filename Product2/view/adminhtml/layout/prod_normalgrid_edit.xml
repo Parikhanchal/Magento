@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd"> -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Kitchen\Product\Block\Adminhtml\NormalGrid\Edit" name="normal_edit"/>
+        </referenceContainer>
+
+        <referenceContainer name="left">
+            <block class="Kitchen\Product\Block\Adminhtml\NormalGrid\Edit\Tabs" name="product_grid_edit_tabs">
+                <block class="Kitchen\Product\Block\Adminhtml\NormalGrid\Edit\Tab\Main" name="product_grid_edit_tab_main"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">product_grid_edit_tab_main</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="product" resource="default" engine="innodb" comment=" Table">
+
+        <column xsi:type="smallint" name="entity_id" unsigned="true" nullable="false" identity="true"
+            comment="Entity ID" />
+
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="table name Identifier" />
+
+        <!-- <column xsi:type="varchar" name="sku" nullable="false" length="255" comment="table sku Identifier" disabled="true"/> for remove column -->
+        <column xsi:type="varchar" name="sku" nullable="false" length="255" comment="table sku Identifier" />
+
+        <column xsi:type="int" name="price" nullable="false" comment="table price Identifier" />
+
+        <column xsi:type="int" name="sort_order" nullable="false" comment="table sort_order Identifier" />
+
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="table Creation Time" />
+
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="table Modification Time" />
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id" />
+        </constraint>
+    </table>
+
+
+
+
+
+    <table name="customer" resource="default" engine="innodb" comment="Customer Table">
+
+        <column xsi:type="smallint" name="customer_id" unsigned="true" nullable="false" identity="true"
+            comment="Customer ID" />
+
+        <column xsi:type="varchar" name="first_name" nullable="false" length="255" comment="First name" />
+
+        <column xsi:type="varchar" name="last_name" nullable="false" length="255" comment="Last name" />
+
+        <column xsi:type="varchar" name="email" nullable="false" length="255" comment="Email" />
+
+        <column xsi:type="varchar" name="gender" nullable="false" length="10" comment="Gender" />
+
+        <column xsi:type="date" name="birth_date" nullable="false" comment="Birth date" />
+
+        <column xsi:type="varchar" name="profile_image" nullable="true" length="255" comment="Profile image" />
+
+        <column xsi:type="text" name="address" nullable="false" comment="Address" />
+
+        <column xsi:type="smallint" name="is_active" nullable="false"  comment="Is Active" />
+
+        <column xsi:type="varchar" name="hobbies" nullable="false" length="255" comment="Hobbies" />
+
+        <column xsi:type="smallint" name="newsletter_subscription" nullable="false" default="0"
+            comment="Newsletter Subscription" />
+
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="Creation Time" />
+
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="Modification Time" />
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="customer_id" />
+        </constraint>
+    </table>
+
+
+
+
+    <!-- customer signup form -->
+
+    <table name="kcustomer" resource="default" engine="innodb" comment=" Table">
+
+        <column xsi:type="smallint" name="entity_id" nullable="false" identity="true"
+            comment="Entity ID" />
+
+        <!-- <column xsi:type="smallint" name="customer_id" unsigned="false" nullable="false" identity="false"
+            comment="Customer ID" /> -->
+
+        <column xsi:type="varchar" name="street" nullable="false" length="255" comment="table street Identifier" />
+
+        <column xsi:type="varchar" name="city" nullable="false" length="255" comment="table city Identifier" />
+
+        <column xsi:type="varchar" name="region" nullable="false" length="255" comment="table region Identifier" />
+
+        <column xsi:type="varchar" name="country" nullable="false" length="255" comment="table country Identifier" />
+
+        <column xsi:type="int" name="postcode" nullable="false" comment="table postcode Identifier" />
+
+        <column xsi:type="timestamp" name="create_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="table Creation Time" />
+
+        <column xsi:type="timestamp" name="update_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="table Modification Time" />
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id" />
+        </constraint>
+    </table>
+
+
+</schema>

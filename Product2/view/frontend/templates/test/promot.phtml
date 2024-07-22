@@ -1,0 +1,33 @@
+<?php
+
+$currentTime = strtotime('now');
+
+$start = strtotime($block->getStartDate());
+$end = strtotime($block->getEndDate());
+
+if (($currentTime == $start || $currentTime > $start) && $currentTime <= $end) :
+?>
+<div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>IsActive</th>
+        </tr>
+        <tr>
+            <td><?php echo $block->getDisplayName(); ?></td>
+            <td><?php echo $block->getDisplayDescription(); ?></td>
+            <td><?php echo $block->getStartDate(); ?></td>
+            <td><?php echo $block->getEndDate(); ?></td>
+            <td><?php echo $block->isActive(); ?></td>
+        </tr>
+    </table>
+</div>
+
+<?php elseif($currentTime < $start): ?>
+    <h4>Coming Soon..</h4>
+<?php else : ?>
+ <h4>Validity expire...</h4>
+<?php endif; ?>

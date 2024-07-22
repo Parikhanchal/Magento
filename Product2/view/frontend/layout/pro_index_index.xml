@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <head>
+        <!-- for css file -->
+       <css src="Kitchen_Product::css/test.css"/>
+       
+       <script src="Kitchen_Product::js/jquery.min.js"/>
+       
+       <!-- for js file -->
+       <script src="Kitchen_Product::js/test.js"/>
+
+
+    </head>
+    <body>
+
+        <referenceContainer name="content">
+            <block class="Kitchen\Product\Block\Index" 
+                name="pro_index_index" 
+                template="Kitchen_Product::test/index.phtml"/>
+        </referenceContainer>
+
+        <referenceContainer name="content">
+            <block class="Magento\Cms\Block\Block" name="BLOCK">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">p_block</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+    </body>
+</page>

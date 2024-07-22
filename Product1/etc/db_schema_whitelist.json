@@ -1,0 +1,16 @@
+{
+    "product": {
+        "column": {
+            "entity_id": true,
+            "name": true,
+            "sku": true,
+            "price": true,
+            "sort_order": true,
+            "creation_time": true,
+            "update_time": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

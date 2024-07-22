@@ -1,0 +1,114 @@
+<h2 class="page-one">Welcome to Mageplaza</h2>
+
+<!-- for require jQuery -->
+<!-- <script>
+    require([
+    'jquery'
+], function ($) {
+    alert("hello requires jQuery");
+    
+});
+
+</script> -->
+
+<br>
+<button class=btn>default one</button>
+<button class=btn>default two</button>
+<br><br><br>
+<button id=btn2>default three</button>
+<br>
+<br><hr>
+<?php
+    $help = $this->helper('Kitchen\Product\Helper\Data');
+ 
+    echo $help->getwebsite();
+    echo "<br>";
+?>
+
+<?php
+    // echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('p_block')->toHtml(); 
+?>
+
+<br><hr>
+<form action="<?= $this->getUrl('pro/index/save') ?>" method="post">
+<input type="hidden" name="entity_id">
+    <label for="name">name:</label>
+    <input type="text" name="name" ><br><br>
+
+    <label for="sku">sku:</label>
+    <input type="text" name="sku"><br><br>
+
+    <label for="price">price:</label>
+    <input type="text" name="price"><br><br>
+
+    <label for="sort_order">sort_order:</label>
+    <input type="text" name="sort_order"><br><br>
+
+    <label for="a_id">A Id:</label>
+    <input type="text" name="a_id"><br><br>
+    
+    <label for="is_active">Is_Active</label>
+    <select name="is_active" id="is_active">
+        <option value="1">Active</option>
+        <option value="0">InActive</option>
+    </select><br><br>
+    <input type="submit" value="Submit" name="submit">
+
+</form> <br>
+
+<?php
+$data = $block->getData();
+?>
+<br><hr>
+
+
+<!-- delete all -->
+<form action="<?php echo $block->getUrl('pro/index/deleteall') ?>" method="post">
+    <button type="submit" name="submit" class="action primary">
+        Delete All
+    </button>
+</form>
+
+
+<form action="<?php echo $block->getUrl('pro/index/index') ?>" method="GET">
+    <label>Select Status:</label> 
+    <select name="user_status" id="user_status">
+        <option value="all">All</option>
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
+    </select><br>
+    <br>
+    <button type="submit" name="submit">Filter</button>
+    <br><br> 
+
+    <label for="sorting">Select Status:</label>
+    <select name="sorting" id="sorting">
+        <option value="ASC">Ascending</option>
+        <option value="DESC">Descending</option>
+    </select><br><br>
+    <button type="submit" name="submit">Sort</button>
+</form> 
+
+
+<h2>view Data</h2>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Sku</th>
+        <th>Price</th>
+        <th>Sort Order</th>
+        <th>Is Active</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <?php
+    echo $block->display();
+    ?>
+</table>
+
+
+<br>
+<br>
+<br><hr>
+

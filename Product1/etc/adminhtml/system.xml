@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="proid" translate="label" sortOrder="10">
+            <label>product</label>
+        </tab>
+        
+        <section id="info" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label> Name</label>
+            <tab>proid</tab>
+            <resource>Cp_User::info_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General Configuration</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Module Enable</label>
+                    <source_model>Kitchen\Product\Model\Config\Source\Week</source_model>
+                </field>
+                <field id="display_text" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Display Text</label>
+                    <comment>This text will display on the frontend.</comment>
+                </field>
+            </group>  
+        </section>
+
+
+
+
+        <tab id="kitchen" translate="label" sortOrder="10">
+            <label>Kitchen365</label>
+        </tab>
+
+        <section id="promotion" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Manage Promotions</label>
+            <tab>kitchen</tab>
+            <resource>Cp_User::info_config</resource>
+
+            <group id="general_one" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+            
+            <label>promotion Configuration</label>
+
+            <field id="name" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enter Name:</label>
+            </field>
+
+            <field id="description" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enter description:</label>
+            </field>
+
+            <field id="startDate" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Start Date:</label>
+            </field>
+
+            <field id="endDate" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>End Date:</label>
+            </field>
+
+            <field id="isActive" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>IS Active:</label>
+                <source_model>Kitchen\Product\Model\Config\Source\Yesno</source_model>
+            </field>
+
+            </group>
+        </section>
+
+            <section id="custom_fields" translate="label" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                <class>separator-top</class>
+                    <label>Custom Fields</label>
+                    <tab>proid</tab>
+                    <resource>Kitchen_Product::info_k365</resource>
+                <group id="custom_field_general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>General Configuration</label>
+                        <field id="grid_view" translate="label comment" type="editor" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Editor View</label>
+                        <frontend_model>Kitchen\Product\Block\Adminhtml\System\Config\Form\Field\Editor</frontend_model>
+                    </field>
+
+                    <field id="category_multiselect" translate="label" type="multiselect" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">
+                        <label>Multi Select Dropdown</label>
+                        <source_model>Kitchen\Product\Model\Config\Source\Yesno</source_model>
+                        <frontend_model>Kitchen\Product\Block\Adminhtml\System\Config\Form\Field\MultiSelect</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+
+                    <field id="listbutton" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Custom Button</label>
+                        <frontend_model>Kitchen\Product\Block\Adminhtml\System\Config\Form\Field\Button</frontend_model>
+                    </field>
+
+                    <field id="dynamic_options" translate="label" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Options</label>
+                        <backend_model>Kitchen\Product\Block\Adminhtml\System\Config\Backend\DynamicBackOptions</backend_model>
+                        <frontend_model>Kitchen\Product\Block\Adminhtml\System\Config\Form\Field\DynamicFrontOptions</frontend_model>
+                    </field>
+                            
+                            
+                    <field id="cutofftime" translate="cut off time" type="time" sortOrder="4" showInDefault="1"
+                    showInWebsite="1" showInStore="1">
+                        <label>Cut off Time</label>
+                    </field>
+                </group>
+        </section>    
+
+        <section id="carriers">
+            <group id="ship" translate="label" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+
+                <label>custome Product</label>
+
+                <field id="title" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Title</label>
+                </field>
+
+                <field id="name" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Name</label>
+                </field>
+
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>IS Active:</label>
+                <source_model>Kitchen\Product\Model\Config\Source\Yesno</source_model>
+            </field>
+
+                <field id="price" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Price</label>
+                </field>
+
+            </group>
+        </section>
+
+
+
+        <section id="kitchen_email" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Manage Email Fields</label>
+            <tab>proid</tab>
+            <resource>Kitchen_Product::Email</resource>
+
+            <group id="try_email" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email Options</label>
+                <field id="kitchen_send_email" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send Emails To</label>
+                    <validate>validate-email</validate>
+                </field>
+
+                <field id="kitchen_reciver_email" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send Emails from</label>
+                    <validate>validate-email</validate>
+                </field>
+
+                <field id="kitchen_sender_email_identity" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                </field>
+
+                <field id="kitchen_email_template" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Try Email Template</label>
+                    <comment>Email template chosen based on theme fallback when "Default" option is selected.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    
+                </field>
+            </group>
+        </section>
+
+    </system>
+</config>

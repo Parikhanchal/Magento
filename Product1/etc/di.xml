@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+
+<!-- <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+  <virtualType name="Magento\Cms\Model\ResourceModel\Post\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cms_page_listing_data_source</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\Cms\Model\ResourceModel\Post</argument>
+        </arguments>
+    </virtualType>
+</config> -->
+
+<!-- <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Kitchen\Product\Model\ResourceModel\Gallery\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">product_data</argument>
+            <argument name="resourceModel" xsi:type="string">Kitchen\Product\Model\ResourceModel\Gallery</argument>
+        </arguments>
+    </virtualType>
+</config> -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="product_page_listing_data_source" xsi:type="string">Kitchen\Product\Model\ResourceModel\Gallery\Grid\Collection</item>
+
+                <item name="product_form_data_source" xsi:type="string">Kitchen\Product\Model\ResourceModel\Gallery\Grid\Collection</item>
+
+                <item name="customer_page_listing_data_source" xsi:type="string">Kitchen\Product\Model\ResourceModel\Customer\Grid\Collection</item>
+ 
+                <item name="customer_form_data_source" xsi:type="string">Kitchen\Product\Model\ResourceModel\Customer\Grid\Collection</item>
+                
+                <item name="cron_grid_listing_data_source" xsi:type="string">Kitchen\Product\Model\ResourceModel\Cron\Grid\Collection</item>
+
+                
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Kitchen\Product\Model\ResourceModel\Gallery\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">product</argument>
+            <argument name="resourceModel" xsi:type="string">Kitchen\Product\Model\ResourceModel\Gallery</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Kitchen\Product\Model\ResourceModel\Customer\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">customer</argument>
+            <argument name="resourceModel" xsi:type="string">Kitchen\Product\Model\ResourceModel\Customer</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Kitchen\Product\Model\ResourceModel\Cron\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cron_schedule</argument>
+            <argument name="resourceModel" xsi:type="string">Kitchen\Product\Model\ResourceModel\Cron</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- for override class via preference -->
+    <!-- setup/patch/data/CreateCustomerApprove -->
+    <!-- <preference for="Magento\Customer\Controller\Account\LoginPost" type="Kitchen\Product\Controller\Account\LoginPost" /> -->
+
+
+    <!-- for override class via plugin -->
+     <type name="Magento\Customer\Controller\Account\LoginPost">
+        <plugin name="Kitchen_Product_Plugin_CustomerPlugin_Login" type="Kitchen\Product\Plugin\CustomerPlugin" sortOrder="10" />
+        <!-- name - uniq -->
+    </type>
+    
+
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="clean" xsi:type="object">Kitchen\Product\Model\Ping</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

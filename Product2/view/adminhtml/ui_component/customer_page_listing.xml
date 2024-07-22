@@ -1,0 +1,307 @@
+<?xml version="1.0" ?>
+
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">customer_page_listing.customer_page_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="prod/customer/create"/>
+                <class>primary</class>
+                <label translate="true">Add New Page</label>
+            </button>
+        </buttons>
+        <spinner>user_page_columns</spinner>
+        <deps>
+            <dep>customer_page_listing.customer_page_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="customer_page_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Kitchen_Product::customer_page</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="customer_page_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>customer_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="observers" xsi:type="array">
+                    <item name="column" xsi:type="string">column</item>
+                </item>
+            </argument>
+            <settings>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+            </settings>
+            <filterSelect name="store_id" provider="${ $.parentName }">
+                <settings>
+                    <captionValue>0</captionValue>
+                    <options class="Magento\Cms\Ui\Component\Listing\Column\Cms\Options"/>
+                    <label translate="true">Store View</label>
+                    <dataScope>store_id</dataScope>
+                    <imports>
+                        <link name="visible">ns = ${ $.ns }, index = ${ $.index }:visible</link>
+                    </imports>
+                </settings>
+            </filterSelect>
+        </filters>
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="prod/customer_cpage/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+            <action name="disable">
+                <settings>
+                    <url path="prod/customer_cpage/massDisable"/>
+                    <type>disable</type>
+                    <label translate="true">Disable</label>
+                </settings>
+            </action>
+            <action name="enable">
+                <settings>
+                    <url path="prod/customer_cpage/massEnable"/>
+                    <type>enable</type>
+                    <label translate="true">Enable</label>
+                </settings>
+            </action>
+            <action name="edit">
+                <settings>
+                    <callback>
+                        <target>editSelected</target>
+                        <provider>customer_page_listing.customer_page_listing.user_page_columns_editor</provider>
+                    </callback>
+                    <type>edit</type>
+                    <label translate="true">Edit</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <columns name="user_page_columns">
+
+        <settings>
+            <editorConfig>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="prod/customer_cpage/inlineedit"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+                <param name="indexField" xsi:type="string">customer_id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">customer_page_listing.customer_page_listing.user_page_columns.ids</param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">customer_page_listing.customer_page_listing.user_page_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>customer_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>55</resizeDefaultWidth>
+            </settings>
+        </selectionsColumn>
+
+         <column name="customer_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="first_name">
+            <!-- <settings>
+                <filter>text</filter>
+                <label translate="true">First Name</label>
+            </settings> -->
+            <settings>
+            <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">First Name</label>
+            </settings>
+        </column>
+
+        <column name="last_name">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Last Name</label>
+            </settings>
+            
+        </column>
+
+        <column name="email">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                        <rule name="validate-email" xsi:type="boolean">true</rule>
+                    </validation>
+                </editor>
+                <label translate="true">Email</label>
+            </settings>
+            
+        </column>
+    
+        <column name="gender">
+            <settings>
+                <filter>text</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Gender</label>
+            </settings>
+        </column>
+
+        <column name="birth_date">
+            <settings>
+                <filter>dateRange</filter>
+                <editor>
+                    <editorType>text</editorType>
+                </editor>
+                <label translate="true">Birth Date</label>
+            </settings>
+        </column>
+
+         <column name="profile_image" component="Magento_Ui/js/grid/columns/thumbnail" class="Kitchen\Product\Ui\Component\Listing\Column\Image">
+            <settings>
+                <hasPreview>1</hasPreview>
+                <altField>name</altField>
+                <!-- <addField>true</addField> -->
+                <label translate="true">Profile Image</label>
+                <sortable>false</sortable>
+            </settings>
+        </column>
+
+        <!-- <column name="profile_image">
+            <settings>
+                <filter>image</filter>
+                <label translate="true">Profile Image</label>
+            </settings>
+        </column> -->
+
+        <column name="address">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Address</label>
+            </settings>
+        </column>
+
+        <column name="hobbies">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Hobbies</label>
+            </settings>
+        </column>
+
+        <!-- <column name="newsletter_subscription" sortOrder="110">
+            <settings>
+                <options class="Kitchen\Product\Model\Config\Source\Subscription"/>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <label translate="true">Newsletter Subscription</label>
+            </settings>
+        </column> -->
+
+        <column name="newsletter_subscription" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="Kitchen\Product\Model\Config\Source\Subscription"/>
+                <filter>select</filter>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>select</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <label translate="true">Subscription</label>
+            </settings>
+        </column>
+
+
+        <column name="is_active" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <options class="Kitchen\Product\Model\Config\Source\Promo"/>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+    
+
+        <column name="creation_time">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">Created</label>
+            </settings>
+        </column>
+        <column name="update_time">
+            <settings>
+                <filter>dateRange</filter>
+                <label translate="true">Modified(Update)</label>
+            </settings>
+        </column>
+
+        <actionsColumn name="actions" class="Kitchen\Product\Ui\Component\Listing\Column\CustomerActions">
+            <settings>
+                <indexField>customer_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn> 
+    </columns>
+</listing>

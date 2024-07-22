@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+<!-- FOR EVENT Dispatch -->
+    <event name="kitchen_product_display_text">
+        <observer name="try_display_text" instance="Kitchen\Product\Observer\ChangeDisplayText" />
+    </event>
+
+    <event name="controller_action_postdispatch">
+        <observer name="event_text" instance="Kitchen\Product\Observer\Eventtest" />
+    </event>
+
+<!-- for customer register success event -->
+    <event name="customer_register_success">
+        <observer name="module_save_customer" instance="Kitchen\Product\Observer\SaveCustomer" />
+    </event>
+</config>
+

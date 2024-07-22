@@ -1,0 +1,141 @@
+<?xml version="1.0" ?>
+
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">cron_grid_listing.cron_grid_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <url path="prod/cron/create"/>
+                <class>primary</class>
+                <label translate="true">Add New Page</label>
+            </button>
+        </buttons>
+        <spinner>user_page_columns</spinner>
+        <deps>
+            <dep>cron_grid_listing.cron_grid_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="cron_grid_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Kitchen_Product::cron_grid</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="cron_grid_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>schedule_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters">
+            <argument name="data" xsi:type="array">
+                <item name="observers" xsi:type="array">
+                    <item name="column" xsi:type="string">column</item>
+                </item>
+            </argument>
+            <settings>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+            </settings>
+            <filterSelect name="store_id" provider="${ $.parentName }">
+                <settings>
+                    <captionValue>0</captionValue>
+                    <options class="Magento\Cms\Ui\Component\Listing\Column\Cms\Options"/>
+                    <label translate="true">Store View</label>
+                    <dataScope>store_id</dataScope>
+                    <imports>
+                        <link name="visible">ns = ${ $.ns }, index = ${ $.index }:visible</link>
+                    </imports>
+                </settings>
+            </filterSelect>
+        </filters>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <columns name="user_page_columns">
+
+        <column name="schedule_id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="job_code">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Job Code</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="status">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Status</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="messages">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Messages</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="created_at">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Created At</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="scheduled_at">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Scheduled At</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="executed_at">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Executed At</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+
+        <column name="finished_at">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Finished At</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+    </columns>
+
+    </listing>
+

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="design_email_header_template" label="Header" file="header.html" type="html" module="Magento_Email" area="frontend"/>
+    <template id="kitchen_email_try_email_kitchen_email_template" label="Test Mail" file="footer.html" type="html" module="Kitchen_Product" area="frontend"/>
+</config>

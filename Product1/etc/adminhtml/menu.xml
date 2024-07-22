@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright © Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Kitchen_Product::page" title="Product" translate="title" module="Kitchen_Product" sortOrder="10" action="product/page" resource="Kitchen_Product::page"/>
+
+        <add id="Kitchen_Product::name" title="Blocks" translate="title" module="Kitchen_Product" sortOrder="30" parent="Kitchen_Product::page" action="prod/Index" resource="Kitchen_Product::name"/>
+
+        <!-- <add id="Kitchen_Product::customer_page" title="Customer" translate="title" module="Kitchen_Product" sortOrder="60" parent="Kitchen_Product::page" action="prod/Customer" resource="Kitchen_Product::customer_page"/> -->
+
+    </menu>
+
+    <menu>
+        <add id="Kitchen_Product::c_page" title="User" translate="title" module="Kitchen_Product" sortOrder="10" action="product/page" resource="Kitchen_Product::c_page"/>
+
+        <add id="Kitchen_Product::customer_page" title="Customer" translate="title" module="Kitchen_Product" sortOrder="30" parent="Kitchen_Product::c_page" action="prod/Customer" resource="Kitchen_Product::customer_page"/>
+        
+        <add id="Kitchen_Product::product_page" title="Product" translate="title" module="Kitchen_Product" sortOrder="60" parent="Kitchen_Product::c_page" action="prod/NormalGrid" resource="Kitchen_Product::product_page"/>
+
+        <!-- <add id="Kitchen_Product::normal_grid" title="N_Grid" translate="title" module="Kitchen_Product" sortOrder="30" parent="Kitchen_Product::c_page" action="prod/Ngrid" resource="Kitchen_Product::normal_grid"/> -->
+
+    </menu>
+
+    <menu>
+        <add id="Kitchen_Product::new_page" title="Cron" translate="title" module="Kitchen_Product" sortOrder="10" action="product/page" resource="Kitchen_Product::new_page"/>
+
+        <add id="Kitchen_Product::cron_grid" title="Cron_tab" translate="title" module="Kitchen_Product" sortOrder="30" parent="Kitchen_Product::new_page" action="prod/cron" resource="Kitchen_Product::cron_grid"/>
+
+    </menu>
+</config>
+        
