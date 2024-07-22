@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="user_ko_registration" resource="default" engine="innodb" comment="User Registration Table">
+
+        <column xsi:type="smallint" name="entity_id" unsigned="true" nullable="false" identity="true"
+            comment="Entity ID" />
+
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Name" />
+
+        <column xsi:type="varchar" name="email" nullable="false" length="255" comment="Email" />
+
+        <column xsi:type="varchar" name="gender" nullable="false" length="10" comment="Gender" />
+
+        <column xsi:type="varchar" name="image" nullable="true" length="255" comment="Image" />
+
+        <column xsi:type="smallint" name="status" nullable="false"  comment="Is Status" />
+
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="Creation Time" />
+
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="Modification Time" />
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id" />
+        </constraint>
+    </table>
+
+</schema>

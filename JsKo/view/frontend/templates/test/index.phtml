@@ -1,0 +1,94 @@
+<button id="custom-button">Open POPup</button>
+<div id="custom-popup">
+    <form id="registrationForm" action="#" method="post">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <br/>
+        <div>
+            <label>Gender:</label>
+            <label><input type="radio" name="gender" value="male"> Male</label>
+            <label><input type="radio" name="gender" value="female"> Female</label>
+            <label><input type="radio" name="gender" value="other"> Other</label>
+        </div>
+        <br/>
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <br/>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <br/>
+        <div>
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image">
+        </div>
+        <br/>
+        <div>
+            <label>Status:</label>
+            <select id="status" name="status">
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
+            </select>
+        </div>
+        <br/>
+    </form>
+</div>
+
+
+<script>
+
+    require(['jquery', 'Magento_Ui/js/modal/modal', 'mage/storage'], function($, modal, storage) {
+        $(document).ready(function() {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'User Registration',
+                buttons: [
+                    {
+                        text: $.mage.__('Close'),
+                        class: 'action-primary',
+                        click: function(e) {
+                            this.closeModal();
+                        }
+                    },
+                    {
+                        text: $.mage.__('Submit'),
+                        class: 'action-primary',
+                        click: function() {
+                            
+                            storage.post(
+                                'user12/index/save', // Adjust this URL to match your controller route
+                                JSON.stringify({
+                                    name: $('#name').val(),
+                                    gender: $('input[name=gender]:checked').val(),
+                                    email: $('#email').val(),
+                                    password: $('#password').val(),
+                                    image: $('#image').val(),
+                                    status: $('#status').val()
+                                }),
+                                true
+                            ).done(function(response) {
+                                $('#custom-popup').modal('closeModal');
+                            
+                            }).fail(function(response) {
+                            });
+                        }
+                    }
+                ]
+            };
+            
+            var popup = modal(options, $('#custom-popup'));
+
+            $('#custom-button').click(function() {
+                $('#custom-popup').modal('openModal');
+            });
+
+        });
+    });
+</script>
