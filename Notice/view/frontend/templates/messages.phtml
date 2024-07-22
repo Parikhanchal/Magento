@@ -1,0 +1,91 @@
+<?php if ($block->checkCustomer() && !$block->isMarked()): ?>
+<div style="display: none;" id="modal-notification">
+    <div id="popup">
+        <!-- <label>Title:</label>
+        <br/><br/>   
+        <label>Description:</label>
+        <br/><hr> -->
+        <b><label>Title:</label></b><span><?php $block = $this->getTitles(); ?></span><br>
+       <b><label>Description:</label></b><span><?php $block = $this->getDescriptions(); ?></span><br><br>
+        <div>
+            <input type="checkbox" id="myCheckbox" name="myCheckbox" value = "1">
+            <label for="myCheckbox">Mark As Read</label>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
+
+<!-- <script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/modal'
+    ], function($, modal) {
+        var popupOptions = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            title: $.mage.__('Notification'),
+            buttons: [{
+                text: $.mage.__('Continue'),
+                class: 'mymodal1',
+                click: function () {
+                    $('#modal-notification').modal("closeModal");
+                }
+            }]
+        };
+ 
+        var popup = modal(popupOptions, $('#modal-notification'));
+ 
+        $('#modal-notification').modal("openModal");
+    });
+</script> -->
+
+
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/modal',
+        'mage/storage'
+    ], function(
+        $,
+        modal,
+        storage
+    ) {
+        $(document).ready(function() {
+        var notice = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: $.mage.__('Notification'),
+                buttons: [{
+                    text: $.mage.__('Confirm'),
+                    class: 'continueBtn',
+                    click: function () {
+                        $('#modal-notification').modal("closeModal");
+                    }
+                }]
+            }; $('#modal-notification').modal(notice).modal("openModal");
+ 
+            var checkBox = document.getElementById('myCheckbox').value;
+ 
+            $("#myCheckbox").click(function() {
+                storage.post(
+                    'notice/index/checkboxSave',
+                    JSON.stringify({
+                        "field":'checkbox',
+                        "value": checkBox
+                    }),
+                    true
+                ).done(function(response) {
+ 
+                }).fail(function(response) {
+                    alert('main Error occurred.');
+                });
+            });
+        });
+        var popup = modal(popupOptions, $('#modal-notification'));
+ 
+        $('#modal-notification').modal("openModal");    
+    });
+</script>

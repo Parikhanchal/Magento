@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="notice_page_listing_data_source" xsi:type="string">Kitchen\Notice\Model\ResourceModel\Notify\Grid\Collection</item>
+
+                <item name="notice_form_data_source" xsi:type="string">Kitchen\Notice\Model\ResourceModel\Notify\Grid\Collection</item>
+
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Kitchen\Notice\Model\ResourceModel\Notify\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">Kitchen_notice</argument>
+            <argument name="resourceModel" xsi:type="string">Kitchen\Notice\Model\ResourceModel\Notify</argument>
+        </arguments>
+    </virtualType>
+
+</config>

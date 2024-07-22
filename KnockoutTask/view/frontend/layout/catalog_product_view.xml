@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- Add custom container -->
+        <referenceContainer name="content">
+            <container name="custom.container" htmlTag="div" htmlClass="custom-container" after="-">
+                <!-- You can add blocks, containers, or other elements inside the custom container -->
+            </container>
+        </referenceContainer>
+
+        <!-- Move existing blocks or add new blocks inside the custom container -->
+        <move element="product.info.main" destination="custom.container" after="-"/>
+        <move element="product.info.price" destination="custom.container" after="-"/>
+        <move element="custom.block" destination="custom.container" after="product.attributes"/>
+
+        <!-- Add your custom block -->
+        <block class="Kitchen\KnockoutTask\Block\Product\View" name="custom.block" template="Kitchen_KnockoutTask::product/view/test.phtml">
+         <arguments>
+              <argument name="view_model" xsi:type="object">Kitchen\KnockoutTask\Block\Custom</argument>
+          </arguments>
+       </block>
+    </body>
+</page>
