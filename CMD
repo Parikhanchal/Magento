@@ -1,0 +1,235 @@
+sudo service elasticsearch start
+sudo service elasticsearch restart
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+php version 
+
+php -v
+php8.1 -->default(for all) use
+php8.2 --> use only cliqstudio
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+for vendor delete and install 
+
+sudo rm -rf vendor/
+ 
+composer install
+
+------------------------------------------------------------
+
+chmod 0777 -R var/ generated/ pub/static/
+php bin/magento s:d:c
+------------------------------------------------------------
+
+------------------------------------------------------------
+
+http://eucucina.localhost.com/request_quote/account/view/quote_id/67
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+jyre debug ma badhe yes hoy to tyre url ni pach aa lakhvu atle thase debug
+
+?templatehints=magento
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+DON'T USE
+
+sudo apt-get update
+
+sudo apt-get autoremove
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+sudo php bin/magento setup:upgrade
+
+sudo php bin/magento c:c
+
+sudo php bin/magento c:f
+
+sudo chmod -R 777 *
+sudo chmod -R 777 var/ pub/ generated/ 
+
+sudo php bin/magento s:d:c
+
+sudo php bin/magento indexer:reindex
+sudo php bin/magento i:rei
+
+sudo php bin/magento indexer:info   //indexing key data
+
+sudo php bin/magento 
+
+sudo php bin/magento setup:upgrade;sudo php bin/magento c:c;sudo php bin/magento c:f;sudo chmod -R 777 *
+
+sudo php bin/magento setup:upgrade;sudo chmod -R 777 *
+sudo php bin/magento setup:upgrade;sudo chmod -R 777 var/ pub/ generated/
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+--> index ma skip thy tyre use krvu
+
+sudo php bin/magento indexer:status
+
+sudo php bin/magento indexer:reset
+
+sudo php bin/magento indexer:reset [index_type]
+
+sudo php bin/magento indexer:reindex 
+
+sudo php bin/magento indexer:reindex [index_type]
+
+sudo php bin/magento indexer:info
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+sudo php bin/magento list
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+for cron
+
+sudo php bin/magento cron:run
+
+sudo php bin/magento cron:remove
+
+sudo php bin/magento cron:install
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+for queue
+
+sudo php bin/magento queue:consumers:list                                 
+
+sudo php bin/ma0gento queue:consumers:restart                              
+
+sudo php bin/magento queue:consumers:start
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+language-pack component 
+
+bin/magento setup:upgrade
+
+bin/magento setup:static-content:deploy -f
+
+bin/magento cache:flush
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+for find something in vendor
+
+grep -R " " vendor/magento/
+
+find vendor/ -name webapi.xml
+find app/ -name system.xml
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+for new file
+
+echo 1 > aaa.php
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Use this command to check current deployment mode. 
+
+-> sudo php bin/magento deploy:mode:show 
+
+How to change mode? 
+
+-> sudo php bin/magento deploy:mode:set developer 
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+update software
+
+for wifi
+
+
+sudo apt update
+sudo apt upgrade
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+for new Admin create
+
+php bin/magento admin:user:create --admin-user='raviraj.chauhan' --admin-password='Raviraj@123' --admin-email='raviraj.chauhan@kitchen365.com' --admin-firstname='Raviraj' --admin-lastname='Chauhan'
+php bin/magento admin:user:create --admin-user=aanchal --admin-password=aanchal@123 --admin-email=aanchal.parikh@kitchen365.com --admin-firstname=aanchal --admin-lastname=parikh
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+FOR new project
+
+
+STEP 1
+
+sidho database install krva
+(sql file install)
+
+1. mysql -uroot -p
+2. show databases;
+3. use databasename
+4. show tables;
+5. source sqlfilename(abc.sql);
+
+STEP 2 
+
+COPY CLONE PATH
+
+STEP 3 
+
+CREATE SITE-AVAILABLE
+
+STEP 4
+
+CORE_CONFIG_ 
+
+
+			STEP 1
+
+sidho database install krva
+(sql file install)
+
+1. mysql -uroot -p
+
+2. show databases;
+
+3. use databasename
+
+4. show tables;
+
+5. source sqlfilename(abc.sql);
+
+ 
+			STEP 2
+
+file - eucucina-local-1.sql.gz
+
+for set database
+downlod ma j cmd open krvu(jya file hoy tya na cmd ma aa run krvu)
+1 - zcat iob(press tab(folder nu name))
+for install sile
+2 - zcat eucucina-local-1.sql.gz | mysql -uroot -p -h127.0.0.1 eucucina
+	Enter password: toor1
+zip install any project database
+
+example:-
+gz zip .sql file(database)
+
+ gunzip < /home/kitchen365/Downloads/staging-2024-05-15.sql.gz | mysql -h127.0.0.1 -uroot -p homemark   (tablename)
+ password - root1
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	git Command
+
+git branch
+git checkout
+git checkout OMS-237 (folder name)
+git branch
+git status
+git diff app/code/Kitchen365/General/view/frontend/templates/customcabinets.phtml
+git add app/code/Kitchen365/General/view/frontend/templates/customcabinets.phtml
+git status
+git commit -m "uat changes"
+git pull origin OMS-237 
+git push origin OMS-237 
+
+
+
+
+
