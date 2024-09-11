@@ -1,0 +1,26 @@
+bin/magento setup:install \
+--base-url=http://aanchal.localhost.com \
+--db-host=localhost \
+--db-name=test1 \
+--db-user=root \
+--db-password=toor1 \
+--admin-firstname=A \
+--admin-lastname=P \
+--admin-email=a@p.com \
+--admin-user=Aanchal \
+--admin-password=admin123 \
+--language=en_US \
+--currency=USD \
+--timezone=America/Chicago \
+--use-rewrites=1 \
+--search-engine=opensearch \
+--opensearch-host=localhost \
+--opensearch-port=9200 \
+--opensearch-index-prefix=magento_local \
+--opensearch-timeout=15
+
+
+error------
+
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');

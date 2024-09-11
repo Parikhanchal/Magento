@@ -1,0 +1,32 @@
+function validation() {
+    var name = document.getElementById('name').value;
+    var price = document.getElementById('price').value;
+    var sku = document.getElementById('sku').value;
+    var sort_order = document.getElementById('sort_order').value;
+
+    if (name == '' || sku == '' || price == '' || sort_order == '') {
+            alert("Please! fill the form...");
+            return false;
+        }
+
+        var nameRegex = /^[a-zA-Z\s]+$/;
+        if (!nameRegex.test(name)) {
+            alert("Please enter a valid product name with only letters and spaces.");
+            return false;
+        }
+
+        var skuRegex = /^[a-z\s]+$/;
+        if (!skuRegex.test(sku)) {
+            alert("Please enter a valid sku name with only small letters and spaces.");
+            return false;
+        }
+
+        if (isNaN(price)) {
+            alert("Please enter a valid price.");
+            return false;
+        }
+
+        if (isNaN(sort_order)) {
+            alert("Please enter a valid sorting numbers.");
+            return false;
+        }

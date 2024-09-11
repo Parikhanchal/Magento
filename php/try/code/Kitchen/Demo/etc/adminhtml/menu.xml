@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Copyright © Magento, Inc. All rights reserved.
+* See COPYING.txt for license details.
+*/
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Kitchen_Demo::page" title="Product" translate="title" module="Kitchen_Demo" sortOrder="10" action="product/page" resource="Kitchen_Demo::page"/>
+        <add id="Kitchen_Demo::name" title="Blocks" translate="title" module="Kitchen_Demo" sortOrder="30" parent="Kitchen_Demo::page" action="prod/Index" resource="Kitchen_Demo::name"/>
+    </menu>
+</config>

@@ -1,0 +1,314 @@
+index.php 
+<?php
+
+include 'library.php';    
+?>
+
+<!DOCTYPE html>
+<html>
+<script>
+  function validation() 
+  {
+    var name = document.getElementById('name').value;
+    var price = document.getElementById('price').value;
+    var sku = document.getElementById('sku').value;
+    var sort_order = document.getElementById('sort_order').value;
+      
+    if (name == '' || sku == '' || price == '' || sort_order == '') {
+      alert("Please! fill the form...");
+      return false;
+    }
+
+    var nameRegex = /^[a-zA-Z\s]+$/;
+    if (!nameRegex.test(name)) {
+      alert("Please enter a valid product name with only letters and spaces.");
+      return false;
+    }
+
+    var skuRegex = /^[a-z\s]+$/;
+    if (!skuRegex.test(sku)) {
+      alert("Please enter a valid sku name with only small letters and spaces.");
+      return false;
+    }
+
+    if (isNaN(price)) {
+      alert("Please enter a valid price.");
+      return false;
+    }
+
+    if (isNaN(sort_order)) {
+      alert("Please enter a valid sorting numbers.");
+      return false;
+    }
+  }
+  function deleteRow() {
+        var table = document.getElementById("table");
+        var rowCount = table.rows.length;
+        console.log("rowcount : " + rowCount);
+        for (var i = 1; i < rowCount; i++) {
+          var c = table.rows[i].cells[0].childNodes;
+          console.log(c);
+          if (c.checked == 1) {
+            console.log("i :" + i);
+            table.deleteRow(i);
+          }
+        }
+      }
+</script>
+
+<body>
+<center>
+<div class="container">
+  
+  <?php
+    if(isset($_SESSION['message']))
+    {
+      echo "".$_SESSION['message']."";
+      unset($_SESSION['message']);
+    }
+  ?>
+  <h2> Forms</h2>
+
+  <form id="myform" action="" onsubmit="return validation()" method="post" >
+  
+  <label for="name">name:</label>
+  <input type="text" id="name" name="name"><br><br>
+
+  <label for="price">price:</label>
+  <input type="text" id="price" name="price" ><br><br>
+  
+  <label for="sku">sku:</label>
+  <input type="text" id="sku" name="sku" ><br><br>
+
+  <label for="sort_order">sort_order:</label>
+  <input type="text" id="sort_order" name="sort_order" ><br><br>
+  
+  <input type="submit" value="Submit" name="submit">
+
+  </form> 
+<hr>
+
+<h3>View All Products</h3>
+      <table id="table"border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Sku</th>
+          <th>Price</th>
+          <th>create_date</th>
+          <th>update_date</th>
+          <th>Actions</th>
+          <th>Check</th>
+        </tr>
+      </thead>
+      <tbody>
+          <?php
+            $product = new product();
+            $result = $product->select();
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()){
+                ?>
+                <tr>
+                    <td><?php echo $row['entity_id'];?></td>
+                    <td><?php echo $row['name'];?></td>
+                    <td><?php echo $row['sku'];?></td>
+                    <td><?php echo $row['price'];?></td>
+                    <td><?php echo $row['create_date'];?></td>
+                    <td><?php echo $row['update_date'];?></td>
+
+                    <td>&nbsp;
+                        <a href="index.php?id=<?php echo $row['entity_id'];?>">Update</a>
+                        </td>
+                    <!-- <td><button onclick="deleteRow();">Remove</button></td> -->
+                    <td><input type="checkbox" onclick="deleteRow();" >
+                    <a href="delete.php?id=<?php echo $row['entity_id'];?>"></a>
+
+                    </td>
+                </tr>
+                <?php
+            }
+        }
+        ?>
+      </tbody>
+      </table>
+<hr>
+<h2> Product Update</h2>
+<?php
+    $id = $_GET['id'];
+    $product = new product();
+    $result = $product->pro_row($id);
+    
+    if ($result->num_rows > 0)
+    {
+      while ($row = $result->fetch_assoc())
+      {
+      ?>
+      <form action="" method="post">
+        <input type="hidden" id='id'  value="<?php echo $row['entity_id'];?>"> 
+
+        <label for="name">name:</label>
+        <input type="text" value="<?php echo $row['name'];?>" id="name" name="name">
+        <br><br>
+        <label for="price">price:</label>
+        <input type="text" id="price" value="<?php echo $row['price'];?>" name="price" ><br><br>
+        
+        <label for="sku">sku:</label>
+        <input type="text" id="sku" value="<?php echo $row['sku'];?>" name="sku" ><br><br>
+
+        <label for="sort_order">sort_order:</label>
+        <input type="text" id="sort_order" value="<?php echo $row['sort_order'];?>" name="sort_order" ><br><br>
+
+        <input type="submit"  name="update">
+    
+</form> 
+    <?php
+    }
+ }
+?>
+</center>
+</div>
+<hr>
+</body>
+</html>
+
+library.php 
+<?php
+    session_start();
+
+    class Database {
+
+		protected $conn;
+		public function __construct()
+		{
+            {
+				$servername = "localhost";
+				$username = "root";
+				$password = "toor1";
+				$dbName = "project";
+				$this->conn = new mysqli($servername, $username, $password, $dbName);
+				if ($this->conn->connect_error) 
+                {
+					die("Connection failed: " . $this->conn->connect_error);
+				}
+			} 
+		}
+    }
+
+    class product extends Database 
+    {
+        public function insert()
+        {
+            {
+                $name = $_POST['name'];
+                $sku = $_POST['sku'];
+                $price = $_POST['price'];
+                $sort_order = $_POST['sort_order'];
+
+                $sql = "INSERT INTO product (name,sku,price,sort_order) VALUES ('$name','$sku','$price','$sort_order')";
+
+                $result = $this->conn->query($sql);
+                
+                if($result) {
+                    // echo "Data inserted successfully.";
+                    $_SESSION['message'] = 'Product inserted successfully';
+                    header("location:index.php");
+                    exit();
+                } else {
+                    // echo "Error inserting data.";
+                    $_SESSION['message'] = "Error inserting data" .$this->conn->error;
+                }
+                return $result;
+            }
+        }
+
+        public function select()
+        {
+            $sql = "SELECT * FROM product";
+			$result = $this->conn->query($sql);
+			return $result;
+        }
+
+        public function update($name,$sku,$price,$sort_order)
+        {
+            $id = $_GET['id'];
+            $name = $_POST['name'];
+            $sku = $_POST['sku'];
+            $price = $_POST['price'];
+            $sort_order = $_POST['sort_order'];
+            
+            $sql = "UPDATE product SET name = '".$name."', price = '$price',sku = '$sku' WHERE entity_id = '$id'";
+            $result = $this->conn->query($sql);
+            if($result) {
+                $_SESSION['message'] = 'Product update successfully';
+                header("location:index.php");
+                exit();
+            } else {
+                $_SESSION['message'] = "Error update data" .$this->conn->error;
+            }
+            return $result;
+        }
+
+        public function pro_row($id)
+        {
+            $sql = "SELECT * FROM product WHERE entity_id ='$id'";
+			$result = $this->conn->query($sql);
+			return $result;
+            // exit();
+        }
+
+        public function delete($id)
+        {
+            $sql = "DELETE FROM product WHERE entity_id ='$id'";
+            $result = $this->conn->query($sql);
+            return $result;
+            // exit();
+
+            
+        }
+
+        //SAVE
+        public function save()
+        {
+            
+        }
+    }
+?>
+
+
+
+
+
+<?php
+  if(isset($_POST['update']))
+  {
+    $product = new product();
+    $result = $product->update($name, $sku, $price, $sort_order);  
+  }
+?>
+
+<?php
+    if(isset($_POST['submit'])) 
+    {
+    $product = new product();
+    $result = $product->insert();  
+    } 
+?>
+
+delete.php 
+<?php
+include 'library.php';        
+  
+  $id = $_GET['id'];
+  $del = new product();
+  $result = $del->delete($id);
+  if( $result) {
+    echo "<script>alert('product deleted successfully');</script>";
+    echo "<script>window.location.href='index.php';</script>";
+    exit();
+  } 
+ else {
+    // echo "error deleting";
+    echo "<script>alert('product not deleted successfully');</script>";
+}
+?>
